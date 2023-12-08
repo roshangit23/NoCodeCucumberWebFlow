@@ -1,0 +1,56 @@
+Alert functionality:
+  SwitchToAlertExample: "//legend[text()='Switch To Alert Example']"
+  AlertButton: "//input[@value='Alert']"
+  ConfirmButton: "//input[@value='Confirm']"
+
+Attribute Check functionality:
+  OpenTab: "//a[text()='Open Tab']"
+  WebTableFixedHeader: "//legend[text()='Web Table Fixed header']"
+  FixedTableHeader: "//table[@id='product']/thead/tr/th[1]"
+
+Checkbox functionality:
+  CheckboxExample: "//legend[text()='Checkbox Example']"
+  Option1: "//input[@value='option1']"
+  Option2: "//input[@value='option2']"
+  Option3: "//input[@value='option3']"
+
+Mouse Hover functionality:
+  MouseHoverExample: "//legend[text()='Mouse Hover Example']"
+  MouseHoverButton: "//button[text()='Mouse Hover']"
+  SampleMouseHoverElement: "//a[text()='Top']"
+
+Dropdown functionality:
+  DropdownExample: "//legend[text()='Dropdown Example']"
+  SampleDropdown: "//select[@id='dropdown-class-example']"
+  SuggestionClassExample: "//legend[text()='Suggession Class Example']"
+  Country: "//input[@placeholder='Type to Select Countries']"
+  OptionElementPath: "//ul[@id='ui-id-1']/li/div"
+
+Element Display functionality:
+  ElementDisplayedExample: "//legend[text()='Element Displayed Example']"
+  ShowButton: "//input[@value='Show']"
+  HideButton: "//input[@value='Hide']"
+  SampleElement: "//input[@placeholder='Hide/Show Example']"
+  Practice: "//h1[text()='Practice Page']"
+
+iFrame functionality:
+  iFrameExample: "//legend[text()='iFrame Example']"
+  JoinNowButton: "(//a[text()='JOIN NOW'])[1]"
+  iFrame: "//iframe[@id='courses-iframe']"
+
+Radio Button functionality:
+  RadioButtonExample: "//legend[text()='Radio Button Example']"
+  Radio1: "//input[@value='radio1']"
+  Radio2: "//input[@value='radio2']"
+  Radio3: "//input[@value='radio3']"
+
+Web Table functionality:
+  WebTableExample: "//legend[text()='Web Table Example']"
+  CoursesTable: "(//table[@id='product'])[1]"
+
+Window switch functionality:
+  SwitchWindowExample: "//legend[text()='Switch Window Example']"
+  SwitchTabExample: "//legend[text()='Switch Tab Example']"
+  OpenWindowButton: "//button[text()='Open Window']"
+  OpenTabButton: "//a[text()='Open Tab']"
+  qaclickacademy: "(//span[text()='info@qaclickacademy.com'])[1]"
