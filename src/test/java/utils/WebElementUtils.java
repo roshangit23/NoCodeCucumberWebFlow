@@ -470,8 +470,10 @@ public class WebElementUtils {
             driver.switchTo().frame(driver.findElement(frameLocator));
         } catch (NoSuchElementException e) {
             logger.error("Frame not found for locator: " + frameLocator, e);
+            Assert.fail("Frame not found for locator: " + frameLocator);
         } catch (Exception e) {
             logger.error("Error switching to frame: " + frameLocator, e);
+            Assert.fail("Error switching to frame: " + frameLocator);
         }
     }
 
@@ -480,6 +482,7 @@ public class WebElementUtils {
             driver.switchTo().defaultContent();
         } catch (Exception e) {
             logger.error("Error switching to default content", e);
+            Assert.fail("Error switching to default content");
         }
     }
 
@@ -490,8 +493,10 @@ public class WebElementUtils {
             actions.moveToElement(element).build().perform();
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
         } catch (Exception e) {
             logger.error("Error hovering over element: " + locator, e);
+            Assert.fail("Error hovering over element: " + locator);
         }
     }
 
@@ -502,8 +507,10 @@ public class WebElementUtils {
             actions.doubleClick(element).build().perform();
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
         } catch (Exception e) {
             logger.error("Error performing double click: " + locator, e);
+            Assert.fail("Error performing double click: " + locator);
         }
     }
 
@@ -514,8 +521,10 @@ public class WebElementUtils {
             actions.contextClick(element).build().perform();
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
         } catch (Exception e) {
             logger.error("Error performing right click: " + locator, e);
+            Assert.fail("Error performing right click: " + locator);
         }
     }
 
@@ -527,8 +536,10 @@ public class WebElementUtils {
             actions.dragAndDrop(source, target).build().perform();
         } catch (NoSuchElementException e) {
             logger.error("Source or target element not found for locators: " + sourceLocator + ", " + targetLocator, e);
+            Assert.fail("Source or target element not found for locators: " + sourceLocator + ", " + targetLocator);
         } catch (Exception e) {
             logger.error("Error performing drag and drop: " + sourceLocator + ", " + targetLocator, e);
+            Assert.fail("Error performing drag and drop: " + sourceLocator + ", " + targetLocator);
         }
     }
 
@@ -538,8 +549,10 @@ public class WebElementUtils {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
         } catch (Exception e) {
             logger.error("Error scrolling to element: " + locator, e);
+            Assert.fail("Error scrolling to element: " + locator);
         }
     }
 
@@ -551,9 +564,11 @@ public class WebElementUtils {
                     .orElseThrow(() -> new NoSuchElementException("Element with text " + text + " not found in list"));
         } catch (NoSuchElementException e) {
             logger.error("Element with text " + text + " not found in list: " + locator, e);
+            Assert.fail("Element with text " + text + " not found in list: " + locator);
             throw e;
         } catch (Exception e) {
             logger.error("Error finding element in list: " + locator, e);
+            Assert.fail("Error finding element in list: " + locator);
             throw e;
         }
     }
@@ -564,8 +579,10 @@ public class WebElementUtils {
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
             logger.error("Timeout waiting for visibility of element: " + locator, e);
+            Assert.fail("Timeout waiting for visibility of element: " + locator);
         } catch (Exception e) {
             logger.error("Error waiting for visibility of element: " + locator, e);
+            Assert.fail("Error waiting for visibility of element: " + locator);
         }
     }
 
@@ -574,9 +591,11 @@ public class WebElementUtils {
             return driver.switchTo().alert().getText();
         } catch (NoAlertPresentException e) {
             logger.error("No alert present", e);
+            Assert.fail("No alert present");
             return null;
         } catch (Exception e) {
             logger.error("Error in getting alert text", e);
+            Assert.fail("Error in getting alert text");
             return null;
         }
     }
@@ -586,8 +605,10 @@ public class WebElementUtils {
             driver.switchTo().alert().accept();
         } catch (NoAlertPresentException e) {
             logger.error("No alert present to accept", e);
+            Assert.fail("No alert present to accept");
         } catch (Exception e) {
             logger.error("Error accepting alert", e);
+            Assert.fail("Error accepting alert");
         }
     }
     public void acceptConfirm() {
@@ -596,8 +617,10 @@ public class WebElementUtils {
             confirmAlert.accept(); // Clicks on 'OK' in a confirmation alert
         } catch (NoAlertPresentException e) {
             logger.error("No confirmation alert present to accept", e);
+            Assert.fail("No confirmation alert present to accept");
         } catch (Exception e) {
             logger.error("Error accepting confirmation alert", e);
+            Assert.fail("Error accepting confirmation alert");
         }
     }
 
@@ -607,17 +630,19 @@ public class WebElementUtils {
             confirmAlert.dismiss(); // Clicks on 'Cancel' in a confirmation alert
         } catch (NoAlertPresentException e) {
             logger.error("No confirmation alert present to dismiss", e);
+            Assert.fail("No confirmation alert present to dismiss");
         } catch (Exception e) {
             logger.error("Error dismissing confirmation alert", e);
+            Assert.fail("Error dismissing confirmation alert");
         }
     }
 
-    public Object executeJavaScript(String script, Object... args) {
+    public void executeJavaScript(String script, Object... args) {
         try {
-            return ((JavascriptExecutor) driver).executeScript(script, args);
+            ((JavascriptExecutor) driver).executeScript(script, args);
         } catch (Exception e) {
             logger.error("Error executing JavaScript", e);
-            return null;
+            Assert.fail("Error executing JavaScript");
         }
     }
 
@@ -635,8 +660,10 @@ public class WebElementUtils {
             }
         } catch (NoSuchWindowException e) {
             logger.error("No such window with url: " + windowUrl, e);
+            Assert.fail("No such window with url: " + windowUrl);
         } catch (Exception e) {
             logger.error("Error switching to window with url: " + windowUrl, e);
+            Assert.fail("Error switching to window with url: " + windowUrl);
         }
     }
 
@@ -645,8 +672,10 @@ public class WebElementUtils {
             driver.findElement(locator).sendKeys(filePath);
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
         } catch (Exception e) {
             logger.error("Error uploading file to: " + locator, e);
+            Assert.fail("Error uploading file to: " + locator);
         }
     }
 
@@ -655,9 +684,11 @@ public class WebElementUtils {
             return driver.findElement(locator).getAttribute(attribute);
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
             return null;
         } catch (Exception e) {
             logger.error("Error getting attribute from element: " + locator, e);
+            Assert.fail("Error getting attribute from element: " + locator);
             return null;
         }
     }
@@ -667,8 +698,10 @@ public class WebElementUtils {
             driver.findElement(closeButtonLocator).click();
         } catch (NoSuchElementException e) {
             logger.error("Close button not found for locator: " + closeButtonLocator, e);
+            Assert.fail("Close button not found for locator: " + closeButtonLocator);
         } catch (Exception e) {
             logger.error("Error closing popup for locator: " + closeButtonLocator, e);
+            Assert.fail("Error closing popup for locator: " + closeButtonLocator);
         }
     }
 
@@ -677,6 +710,7 @@ public class WebElementUtils {
             driver.manage().window().setSize(new Dimension(width, height));
         } catch (Exception e) {
             logger.error("Error resizing browser", e);
+            Assert.fail("Error resizing browser");
         }
     }
 
@@ -685,6 +719,7 @@ public class WebElementUtils {
             driver.manage().window().setPosition(new Point(x, y));
         } catch (Exception e) {
             logger.error("Error moving browser", e);
+            Assert.fail("Error moving browser");
         }
     }
 
@@ -693,6 +728,7 @@ public class WebElementUtils {
             executeJavaScript("document.body.style.zoom='" + zoomLevel + "'");
         } catch (Exception e) {
             logger.error("Error zooming page", e);
+            Assert.fail("Error zooming page");
         }
     }
 
@@ -701,6 +737,7 @@ public class WebElementUtils {
             executeJavaScript("window.scrollBy(" + x + "," + y + ")");
         } catch (Exception e) {
             logger.error("Error scrolling by coordinates", e);
+            Assert.fail("Error scrolling by coordinates");
         }
     }
 
@@ -709,6 +746,7 @@ public class WebElementUtils {
             driver.navigate().refresh();
         } catch (Exception e) {
             logger.error("Error refreshing browser", e);
+            Assert.fail("Error refreshing browser");
         }
     }
 
@@ -717,6 +755,7 @@ public class WebElementUtils {
             driver.navigate().to(url);
         } catch (Exception e) {
             logger.error("Error navigating to URL: " + url, e);
+            Assert.fail("Error navigating to URL: " + url);
         }
     }
 
@@ -725,6 +764,7 @@ public class WebElementUtils {
             return driver.getCurrentUrl();
         } catch (Exception e) {
             logger.error("Error getting current page URL", e);
+            Assert.fail("Error getting current page URL");
             return null;
         }
     }
@@ -734,6 +774,7 @@ public class WebElementUtils {
             return driver.getTitle();
         } catch (Exception e) {
             logger.error("Error getting current page title", e);
+            Assert.fail("Error getting current page title");
             return null;
         }
     }
@@ -743,8 +784,10 @@ public class WebElementUtils {
             new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(condition);
         } catch (TimeoutException e) {
             logger.error("Timeout waiting for condition", e);
+            Assert.fail("Timeout waiting for condition");
         } catch (Exception e) {
             logger.error("Error waiting for condition", e);
+            Assert.fail("Error waiting for condition");
         }
     }
 
@@ -753,15 +796,18 @@ public class WebElementUtils {
             driver.manage().addCookie(cookie);
         } catch (Exception e) {
             logger.error("Error adding cookie", e);
+            Assert.fail("Error adding cookie");
         }
     }
 
     public Cookie getCookie(String name) {
         try {
             return driver.manage().getCookieNamed(name);
-             } catch (Exception e) {
-        logger.error("Error getting cookie: " + name, e);
-        return null;
+             }
+        catch (Exception e) {
+         logger.error("Error getting cookie: " + name, e);
+         Assert.fail("Error getting cookie: " + name);
+         return null;
     }
 }
 
@@ -770,9 +816,11 @@ public class WebElementUtils {
             new WebDriverWait(driver, Duration.ofSeconds(30)).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         } catch (TimeoutException e) {
-            logger.error("Timeout waiting for page load to complete", e);
+            logger.error("Timed out waiting for page load to complete", e);
+            Assert.fail("Timed out waiting for page load to complete");
         } catch (Exception e) {
             logger.error("Error waiting for page load to complete", e);
+            Assert.fail("Error waiting for page load to complete");
         }
     }
 
