@@ -11,7 +11,7 @@ Feature: Dropdown functionality
     Given I am on the "SuggestionClassExample" section
     When I enter "Ind" into the "Country"
     And I select the option "India" for the dynamic dropdown "Country" with option path "OptionElementPath"
-    Then The text of thee input field "Country" should be "India"
+    Then The text of the input field "Country" should be "India"
 
   Scenario: Checking if a dropdown is enabled
     Given I am on the "DropdownExample" section

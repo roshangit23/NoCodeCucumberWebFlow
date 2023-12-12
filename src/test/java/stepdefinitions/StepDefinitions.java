@@ -86,28 +86,33 @@ public class StepDefinitions {
     @Then("The element {string} should be displayed")
     public void theElementShouldBeDisplayed(String elementName) {
         String xpath = getXPathFromYaml(elementName);
-        assert webElementUtils.isElementDisplayed(By.xpath(xpath));
+        Assert.assertTrue(webElementUtils.isElementDisplayed(By.xpath(xpath)),
+                "The element with name '" + elementName + "' is not displayed.");
     }
     @Then("The element {string} should not be displayed")
     public void theElementShouldNotBeDisplayed(String elementName) {
         String xpath = getXPathFromYaml(elementName);
-        assert webElementUtils.isElementNotDisplayed(By.xpath(xpath));
+        Assert.assertTrue(webElementUtils.isElementNotDisplayed(By.xpath(xpath)),
+                "The element with name '" + elementName + "' is displayed.");
     }
     @Then("The element {string} should be enabled")
     public void theElementShouldBeEnabled(String elementName) {
         String xpath = getXPathFromYaml(elementName);
-        assert webElementUtils.isElementEnabled(By.xpath(xpath));
+        Assert.assertTrue(webElementUtils.isElementEnabled(By.xpath(xpath)),
+                "The element with name '" + elementName + "' is not enabled.");
     }
 
     @Then("The element {string} should be selected")
     public void theElementShouldBeSelected(String elementName) {
         String xpath = getXPathFromYaml(elementName);
-        assert webElementUtils.isElementSelected(By.xpath(xpath));
+        Assert.assertTrue(webElementUtils.isElementSelected(By.xpath(xpath)),
+                "The element with name '" + elementName + "' is not selected.");
     }
     @Then("The element {string} should not be selected")
     public void theElementShouldNotBeSelected(String elementName) {
         String xpath = getXPathFromYaml(elementName);
-        assert webElementUtils.isElementNotSelected(By.xpath(xpath));
+        Assert.assertTrue(webElementUtils.isElementNotSelected(By.xpath(xpath)),
+                "The element with name '" + elementName + "' is selected.");
     }
     @When("I hover over the element {string}")
     public void iHoverOverTheElement(String elementName) {
@@ -166,20 +171,23 @@ public class StepDefinitions {
     public void theTextOfElementShouldBe(String elementName, String expectedText) {
         String xpath = getXPathFromYaml(elementName);
         String actualText = webElementUtils.getElementText(By.xpath(xpath));
-        assert actualText.equals(expectedText);
+        Assert.assertEquals(actualText, expectedText,
+                "The text of the element '" + elementName + "' does not match the expected text.");
     }
 
-    @Then("The text of thee input field {string} should be {string}")
+    @Then("The text of the input field {string} should be {string}")
     public void theTextOfInputFieldShouldBe(String elementName, String expectedText) {
         String xpath = getXPathFromYaml(elementName);
-        Boolean result = webElementUtils.verifyInputFieldText(By.xpath(xpath),expectedText);
-        assert(result);
+        Boolean result = webElementUtils.verifyInputFieldText(By.xpath(xpath), expectedText);
+        Assert.assertTrue(result, "The text of the input field '" + elementName +
+                "' does not match the expected text '" + expectedText + "'.");
     }
 
     @Then("The element {string} should be present")
     public void theElementShouldBePresent(String elementName) {
         String xpath = getXPathFromYaml(elementName);
-        assert webElementUtils.isElementPresent(By.xpath(xpath));
+        Assert.assertTrue(webElementUtils.isElementPresent(By.xpath(xpath)),
+                "The element '" + elementName + "' is not present.");
     }
 
     @When("I click the radio button {string}")
@@ -201,23 +209,29 @@ public class StepDefinitions {
     }
 
     @When("I get text from cell at row {int} column {int} of table {string} which should be {string}")
-    public void iGetTextFromTableCell(int row, int column, String tableName,String textToVerify) {
+    public void iGetTextFromTableCell(int row, int column, String tableName, String textToVerify) {
         String xpath = getXPathFromYaml(tableName);
-        assert(webElementUtils.getTableCellText(By.xpath(xpath), row, column).equals(textToVerify));
+        String actualText = webElementUtils.getTableCellText(By.xpath(xpath), row, column);
+        Assert.assertEquals(actualText, textToVerify,
+                "Text from the table cell at row " + row + " and column " + column +
+                        " does not match the expected text '" + textToVerify + "'.");
     }
 
     @Then("The row count of table {string} should be {int}")
     public void theRowCountOfTableShouldBe(String tableName, int expectedCount) {
         String xpath = getXPathFromYaml(tableName);
         int rowCount = webElementUtils.getRowCount(By.xpath(xpath));
-        assert rowCount == expectedCount;
+        Assert.assertEquals(rowCount, expectedCount,
+                "Row count of table '" + tableName + "' does not match the expected count.");
     }
 
     @Then("The column count of row {int} in table {string} should be {int}")
     public void theColumnCountOfRowInTableShouldBe(int row, String tableName, int expectedCount) {
         String xpath = getXPathFromYaml(tableName);
         int columnCount = webElementUtils.getColumnCount(By.xpath(xpath), row);
-        assert columnCount == expectedCount;
+        Assert.assertEquals(columnCount, expectedCount,
+                "Column count of row " + row + " in table '" + tableName +
+                        "' does not match the expected count.");
     }
 
     @Then("I should get all data from table {string}")
@@ -238,7 +252,8 @@ public class StepDefinitions {
     public void cellInTableShouldContainText(int row, int column, String tableName, String expectedText) {
         String xpath = getXPathFromYaml(tableName);
         boolean isPresent = webElementUtils.isCellTextPresent(By.xpath(xpath), row, column, expectedText);
-        assert isPresent;
+        Assert.assertTrue(isPresent, "The cell at row " + row + " and column " + column +
+                " in table '" + tableName + "' does not contain the expected text '" + expectedText + "'.");
     }
 
     @Then("I should get header names from table {string}")
@@ -259,7 +274,8 @@ public class StepDefinitions {
     public void columnInTableShouldBeSorted(int column, String tableName, String order) {
         String xpath = getXPathFromYaml(tableName);
         boolean isSorted = webElementUtils.isColumnSorted(By.xpath(xpath), column, order.equalsIgnoreCase("ascending"));
-        assert isSorted;
+        Assert.assertTrue(isSorted, "Column " + column + " in table '" + tableName +
+                "' is not sorted in " + order + " order as expected.");
     }
 
     @When("I filter data in column {int} of table {string} by text {string}")
@@ -283,7 +299,8 @@ public class StepDefinitions {
     @Then("The alert text should be {string}")
     public void theAlertTextShouldBe(String expectedText) {
         String actualText = webElementUtils.getAlertText();
-        assert actualText.equals(expectedText);
+        Assert.assertEquals(actualText, expectedText,
+                "The actual text of the alert does not match the expected text.");
     }
     @When("I accept the confirmation alert")
     public void iAcceptTheConfirmationAlert() {
@@ -315,7 +332,9 @@ public class StepDefinitions {
     public void theAttributeOfElementShouldBe(String attribute, String elementName, String expectedValue) {
         String xpath = getXPathFromYaml(elementName);
         String actualValue = webElementUtils.getAttribute(By.xpath(xpath), attribute);
-        assert actualValue.equals(expectedValue);
+        Assert.assertEquals(actualValue, expectedValue,
+                "The value of the attribute '" + attribute + "' for element '" + elementName +
+                        "' does not match the expected value.");
     }
 
     @When("I close the popup {string}")
@@ -357,13 +376,15 @@ public class StepDefinitions {
     @Then("The current page URL should be {string}")
     public void theCurrentPageURLShouldBe(String expectedUrl) {
         String actualUrl = webElementUtils.getCurrentPageURL();
-        assert actualUrl.equals(expectedUrl);
+        Assert.assertEquals(actualUrl, expectedUrl,
+                "The current page URL does not match the expected URL.");
     }
 
     @Then("The current page title should be {string}")
     public void theCurrentPageTitleShouldBe(String expectedTitle) {
         String actualTitle = webElementUtils.getCurrentPageTitle();
-        assert actualTitle.equals(expectedTitle);
+        Assert.assertEquals(actualTitle, expectedTitle,
+                "The current page title does not match the expected title.");
     }
 
     @When("I add a cookie with name {string} and value {string}")
@@ -375,12 +396,13 @@ public class StepDefinitions {
     @Then("A cookie with name {string} should exist")
     public void aCookieWithNameShouldExist(String cookieName) {
         Cookie cookie = webElementUtils.getCookie(cookieName);
-        assert cookie != null;
+        Assert.assertNotNull(cookie, "A cookie with name '" + cookieName + "' should exist, but it does not.");
     }
+
     @Then("A cookie with name {string} should not exist")
     public void aCookieWithNameShouldNotExist(String cookieName) {
         Cookie cookie = webElementUtils.getCookie(cookieName);
-        assert cookie == null;
+        Assert.assertNull(cookie, "A cookie with name '" + cookieName + "' should not exist, but it does.");
     }
 
     @When("I wait for the page to load completely")
@@ -404,8 +426,8 @@ public class StepDefinitions {
     public void theColorOfElementShouldBe(String elementName, String expectedColorValue) {
         String xpath = getXPathFromYaml(elementName);
         boolean result = webElementUtils.isElementColorAsExpected(By.xpath(xpath), "color", expectedColorValue);
-        //assert result;
-        Assert.assertTrue(result, "The color of the element is not as expected.");
+        Assert.assertTrue(result, "The color of element '" + elementName +
+                "' does not match the expected color value '" + expectedColorValue + "'.");
     }
 
     @Then("I should see all options in dropdown {string}")

@@ -5,4 +5,4 @@ Feature: Wait Conditions functionality
     When I enter "Ind" into the "Country"
     Then I wait for element "OptionElementPath" to be visible for 10 seconds
     And I select the option "India" for the dynamic dropdown "Country" with option path "OptionElementPath"
-    Then The text of thee input field "Country" should be "India"
+    Then The text of the input field "Country" should be "India"

@@ -829,8 +829,10 @@ public class WebElementUtils {
             driver.switchTo().frame(index);
         } catch (NoSuchFrameException e) {
             logger.error("No such frame: " + index, e);
+            Assert.fail("No such frame: " + index);
         } catch (Exception e) {
             logger.error("Error switching to frame: " + index, e);
+            Assert.fail("Error switching to frame: " + index);
         }
     }
 
@@ -843,6 +845,7 @@ public class WebElementUtils {
             optionToSelect.click();
         } else {
             logger.error("Option with text " + value + " not found in dropdown");
+            Assert.fail("Option with text " + value + " not found in dropdown");
         }
     }
 
@@ -851,9 +854,11 @@ public class WebElementUtils {
             return driver.findElement(locator).getCssValue(cssProperty);
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
+            Assert.fail("Element not found for locator: " + locator);
             return null;
         } catch (Exception e) {
             logger.error("Error getting CSS value for: " + locator, e);
+            Assert.fail("Error getting CSS value for: " + locator);
             return null;
         }
     }
@@ -869,9 +874,11 @@ public class WebElementUtils {
             return dropdown.getOptions().stream().map(WebElement::getText).collect(Collectors.toList());
         } catch (NoSuchElementException e) {
             logger.error("Dropdown not found for locator: " + locator, e);
+            Assert.fail("Dropdown not found for locator: " + locator);
             return Collections.emptyList();
         } catch (Exception e) {
             logger.error("Error getting all options from dropdown: " + locator, e);
+            Assert.fail("Error getting all options from dropdown: " + locator);
             return Collections.emptyList();
         }
     }
@@ -881,6 +888,7 @@ public class WebElementUtils {
             driver.manage().deleteAllCookies();
         } catch (Exception e) {
             logger.error("Error deleting all cookies", e);
+            Assert.fail("Error deleting all cookies");
         }
     }
 
@@ -892,10 +900,10 @@ public class WebElementUtils {
             FileUtils.copyFile(screenshot, new File(filePath));
         } catch (NoSuchElementException e) {
             logger.error("Element not found for screenshot: " + locator, e);
-            throw e;
+            Assert.fail("Element not found for screenshot: " + locator);
         } catch (IOException e) {
             logger.error("Error taking element screenshot", e);
-            throw e;
+            Assert.fail("Error taking element screenshot");
         }
     }
 
@@ -906,9 +914,11 @@ public class WebElementUtils {
             return shadowRoot.findElement(By.cssSelector(cssSelector));
         } catch (NoSuchElementException e) {
             logger.error("Shadow element not found: " + cssSelector, e);
+            Assert.fail("Shadow element not found: " + cssSelector);
             return null;
         } catch (Exception e) {
             logger.error("Error finding shadow DOM element", e);
+            Assert.fail("Error finding shadow DOM element");
             return null;
         }
     }
@@ -919,6 +929,7 @@ public class WebElementUtils {
                     .executeScript("return window.performance.getEntries()[0]");
         } catch (Exception e) {
             logger.error("Error getting performance metrics", e);
+            Assert.fail("Error getting performance metrics");
             return Collections.emptyMap();
         }
     }
@@ -929,8 +940,10 @@ public class WebElementUtils {
             element.click();
         } catch (NoSuchElementException e) {
             logger.error("Element not found for safe click: " + locator, e);
+            Assert.fail("Element not found for safe click: " + locator);
         } catch (Exception e) {
             logger.error("Error performing safe click on element: " + locator, e);
+            Assert.fail("Error performing safe click on element: " + locator);
         }
     }
 
@@ -942,10 +955,10 @@ public class WebElementUtils {
             dateField.sendKeys(date);
         } catch (NoSuchElementException e) {
             logger.error("Element not found for locator: " + locator, e);
-            throw e;
+            Assert.fail("Element not found for locator: " + locator);
         } catch (Exception e) {
             logger.error("Error entering date in simple field: " + locator, e);
-            throw e;
+            Assert.fail("Error entering date in simple field: " + locator);
         }
     }
 
@@ -981,13 +994,13 @@ public class WebElementUtils {
             }
         }catch (NoSuchElementException e) {
             logger.error("Element not found in selectDateFromLinkCalendar", e);
-            throw e;
+            Assert.fail("Element not found in selectDateFromLinkCalendar");
         } catch (TimeoutException e) {
             logger.error("Timeout in selectDateFromLinkCalendar", e);
-            throw e;
+            Assert.fail("Timeout in selectDateFromLinkCalendar");
         } catch (Exception e) {
             logger.error("Error in selectDateFromLinkCalendar", e);
-            throw e;
+            Assert.fail("Error in selectDateFromLinkCalendar");
         }
     }
 
@@ -1013,10 +1026,10 @@ public class WebElementUtils {
             }
         } catch (NoSuchElementException e) {
             logger.error("Element not found in selectDateFromDropdownCalendar", e);
-            throw e;
+            Assert.fail("Element not found in selectDateFromDropdownCalendar");
         } catch (Exception e) {
             logger.error("Error in selectDateFromDropdownCalendar", e);
-            throw e;
+            Assert.fail("Error in selectDateFromDropdownCalendar");
         }
     }
 
@@ -1028,10 +1041,10 @@ public class WebElementUtils {
             timeField.sendKeys(time);
         } catch (NoSuchElementException e) {
             logger.error("Element not found in selectDateTime", e);
-            throw e;
+            Assert.fail("Element not found in selectDateTime");
         } catch (Exception e) {
             logger.error("Error in selectDateTime", e);
-            throw e;
+            Assert.fail("Error in selectDateTime");
         }
     }
 
@@ -1043,7 +1056,7 @@ public class WebElementUtils {
             selectDateFromLinkCalendar(calendarLocator, monthLocator, yearLocator, previousButtonLocator, nextButtonLocator, targetMonthYear, dayLocator, day);
         } catch (Exception e) {
             logger.error("Error in selectCurrentDate", e);
-            throw e;
+            Assert.fail("Error in selectCurrentDate");
         }
     }
     public void selectRandomFutureDate(By calendarLocator, By monthLocator, By yearLocator, By previousButtonLocator, By nextButtonLocator, By dayLocator, int daysInFuture) {
@@ -1054,7 +1067,7 @@ public class WebElementUtils {
             selectDateFromLinkCalendar(calendarLocator, monthLocator, yearLocator, previousButtonLocator, nextButtonLocator, monthYear, dayLocator, day);
         } catch (Exception e) {
             logger.error("Error in selectRandomFutureDate", e);
-            throw e;
+            Assert.fail("Error in selectRandomFutureDate");
         }
     }
 
@@ -1068,17 +1081,17 @@ public class WebElementUtils {
                         logger.info("Verified: The date " + day + " is not clickable.");
                         return;
                     } else {
-                        throw new AssertionError("The date " + day + " is clickable, but it should not be.");
+                        Assert.fail("The date " + day + " is clickable, but it should not be.");
                     }
                 }
             }
-            throw new NoSuchElementException("The date " + day + " was not found in the calendar.");
+            Assert.fail("The date " + day + " was not found in the calendar.");
         } catch (NoSuchElementException e) {
             logger.error("Element not found in verifyDateNotClickable", e);
-            throw e;
+            Assert.fail("Element not found in verifyDateNotClickable");
         } catch (Exception e) {
             logger.error("Error in verifyDateNotClickable", e);
-            throw e;
+            Assert.fail("Error in verifyDateNotClickable");
         }
     }
 
@@ -1088,11 +1101,13 @@ public class WebElementUtils {
             return true;
         } catch (TimeoutException e) {
             logger.error("Element is not clickable", e);
+            Assert.fail("Element is not clickable");
             return false;
         } catch (Exception e) {
             logger.error("Error in isElementClickable", e);
-            throw e;
+            Assert.fail("Error in isElementClickable");
         }
+        return false;
     }
 
     public void selectDateRange(By calendarLocator, By startDayLocator, By endDayLocator, String startDate, String endDate) {
@@ -1102,7 +1117,7 @@ public class WebElementUtils {
             selectDateFromDayLocator(endDayLocator, endDate);
         } catch (Exception e) {
             logger.error("Error in selectDateRange", e);
-            throw e;
+            Assert.fail("Error in selectDateRange");
         }
     }
 
@@ -1117,7 +1132,7 @@ public class WebElementUtils {
             selectDateFromDayLocator(dayLocator, day);
         } catch (Exception e) {
             logger.error("Error in selectDateByDayOfCurrentWeek", e);
-            throw e;
+            Assert.fail("Error in selectDateByDayOfCurrentWeek");
         }
     }
 
@@ -1132,10 +1147,10 @@ public class WebElementUtils {
             }
         } catch (NoSuchElementException e) {
             logger.error("Element not found in selectDateFromDayLocator", e);
-            throw e;
+            Assert.fail("Element not found in selectDateFromDayLocator");
         } catch (Exception e) {
             logger.error("Error in selectDateFromDayLocator", e);
-            throw e;
+            Assert.fail("Error in selectDateFromDayLocator");
         }
     }
 
